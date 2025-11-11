@@ -720,7 +720,8 @@
 </section>
 
 <section data-transition="fade-in fade-out">
-<h2>Base Qt Quick application</h2>
+<h2>A base Qt Quick application</h2>
+<h2>We called it "minimal"</h2>
 <div id="left">
 <pre style="font-size: 20%;"><code class="js" data-trim data-noescape>
 pragma ComponentBehavior: Bound
@@ -1010,63 +1011,64 @@ main()
 </section> -->
 
 <section data-transition="fade-in fade-out" data-background-image="img/qtws_back_swift.png">
-<h3>Qt Bridges (Swift) - Minimal application</h3>
+<h3>Qt Bridges (Swift) - "minimal" application</h3>
 <div id="left">
   <pre style="font-size: 28%;"><code class="swift" data-trim data-noescape>
 // main.swift (1/2)
 @QtBridgeable
 public class ListModel {
-  @Published var list: [String] = ["test string"]
-  @Published var duplicateStringFound : String = ""
+    var list: [String] = ["test string"]
+    var duplicateStringFound : String = ""
 
-  public func editString(index: Int, newString: String) {
-    if list.contains(newString) {
-        postDuplicateNotification(with: newString)
-    } else {
-        list[index] = newString
+    public func editString(index: Int, newString: String) {
+        if list.contains(newString) {
+            postDuplicateNotification(with: newString)
+        } else {
+            list[index] = newString
+        }
     }
-  }
 
-  public func addString(newString: String) {
-    if list.contains(newString) {
-        postDuplicateNotification(with: newString)
-    } else {
-        list.append(newString)
+    public func addString(newString: String) {
+        if list.contains(newString) {
+            postDuplicateNotification(with: newString)
+        } else {
+            list.append(newString)
+        }
     }
-  }
 
-  public func removeString(index: Int) {
-    list.remove(at: index)
-  }
+    public func removeString(index: Int) {
+        list.remove(at: index)
+    }
 
-  private func postDuplicateNotification(with duplicateString: String) {
-    duplicateStringFound = duplicateString
-  }
+    private func postDuplicateNotification(with duplicateString: String) {
+        duplicateStringFound = duplicateString
+    }
 }
   </code></pre>
 </div>
 <div id="left">
   <pre style="font-size: 30%;"><code class="swift" data-trim data-noescape>
 // main.swift (2/2)
-var app = QApp()
-
-var model = ListModel()
-app.addInitialProperty(name: "listModel", model: model)
-
-let qmlPath = Bundle.module.url(forResource: "main",
-                withExtension: "qml")!.path
-app.setRootQml(path: qmlPath)
-
-app.run(argc: CommandLine.argc,
-        argv: CommandLine.unsafeArgv)
+@main
+struct MyApp: QApp {
+    let qmlFileName: String = "main"
+    var bundle: Bundle { .module }
+    let model = ListModel()
+    let modelContextName = "listModel"
+}
 
   </code></pre>
 </div>
 </section>
 
-<section data-background-video="videos/bridges_swift_short.mp4"
-          data-background-video-loop data-background-video-muted>
+<section data-transition="fade-in fade-out" data-background-image="img/qtws_back_swift.png">
+  <h2 class="r-fit-text">A sneak peak</h2>
+  <h2 class="r-fit-text">Live demo: minimal Qt Quick app with Swift backend</h2>
 </section>
+
+<!-- <section data-background-video="videos/bridges_swift_short.mp4"
+          data-background-video-loop data-background-video-muted>
+</section> -->
 
 <!-- Java -->
 <section class="slide-blue" data-transition="fade-in fade-out">
@@ -1203,9 +1205,14 @@ public class Main {
 </div>
 </section>
 
-<section data-background-video="videos/bridges_java_short.mp4"
-          data-background-video-loop data-background-video-muted>
+<section data-transition="fade-in fade-out" data-background-image="img/qtws_back_java.png">
+  <h2 class="r-fit-text">A larger sneak peak</h2>
+  <h2 class="r-fit-text">Live demo: Qt Quick frontend from REST examples with with Java as backend</h2>
 </section>
+
+<!-- <section data-background-video="videos/bridges_java_short.mp4"
+          data-background-video-loop data-background-video-muted>
+</section> -->
 
 <section data-transition="fade-in fade-out">
   <h2>Interoperability with Kotlin <i class="qt-neon">for free*</i></h2>
